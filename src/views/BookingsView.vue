@@ -6,17 +6,17 @@
         <tr>
           <th>Venue</th>
           <th>Date</th>
-          <th>Status</th>
+          <th>Seats Available</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(workshop, index) in availableWorkshops" :key="index">
+        <tr v-for="workshop in workshops" :key="workshop.id">
           <td>{{ workshop.venue }}</td>
           <td>{{ workshop.date }}</td>
-          <td>{{ workshop.status }}</td>
+          <td>{{ workshop.seats }}</td>
           <td>
-            <button v-if="workshop.status === 'Available'" @click="bookWorkshop(workshop)">
+            <button v-if="workshop.seats > 0" @click="bookWorkshop(workshop.id)">
               Book Now
             </button>
             <span v-else>Sold Out</span>
@@ -30,35 +30,39 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
-      workshops: [
-        { venue: "Cape Town", date: "2024-10-10", status: "Available" },
-        { venue: "Durban", date: "2024-10-15", status: "Sold Out" },
-      ],
+      workshops: [],
     };
   },
-  computed: {
-    availableWorkshops() {
-      return this.workshops.filter(w => w.status === "Available");
-    }
-  },
   methods: {
-    async bookWorkshop(workshop) {
+    async fetchWorkshops() {
       try {
-        await axios.post("https://your-live-api.com/bookings", { 
-          venue: workshop.venue, 
-          date: workshop.date 
-        });
-        alert("Workshop booked successfully!");
+        const response = await axios.get("https://backend-assignment-sharenet.onrender.com/api/workshops");
+        this.workshops = response.data;
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching workshops:", error);
       }
-    }
-  }
+    },
+    async bookWorkshop(workshopId) {
+      try {
+        const response = await axios.post("https://backend-assignment-sharenet.onrender.com/api/book", {
+          workshopId,
+        });
+        alert(response.data.message);
+        this.fetchWorkshops(); // Refresh workshop data
+      } catch (error) {
+        console.error("Error booking workshop:", error);
+        alert(error.response?.data?.error || "Booking failed");
+      }
+    },
+  },
+  mounted() {
+    this.fetchWorkshops();
+  },
 };
 </script>
 
