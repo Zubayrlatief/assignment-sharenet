@@ -25,7 +25,7 @@ const bookWorkshop = async (id) => {
 
 <template>
   <div class="container mt-4">
-    <h2>Workshops</h2>
+    <h2>Bookings</h2>
     <table class="table">
       <thead>
         <tr>

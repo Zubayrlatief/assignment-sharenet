@@ -38,6 +38,6 @@ onMounted(async () => {
       </tbody>
     </table>
     <router-link to="/contact">Contact Us</router-link> |
-    <router-link to="/workshops">Workshops</router-link>
+    <router-link to="/bookings">Bookings</router-link>
   </div>
 </template>
