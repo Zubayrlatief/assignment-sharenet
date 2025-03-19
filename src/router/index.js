@@ -6,7 +6,7 @@ import BookingsView from '../views/BookingsView.vue';
 const routes = [
   { path: '/', component: HomeView },
   { path: '/contact', component: ContactView },
-  { path: '/bookings', component: BookingsView }
+  { path: '/workshops', component: BookingsView }
 ];
 
 const router = createRouter({
