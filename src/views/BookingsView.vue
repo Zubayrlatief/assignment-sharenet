@@ -109,13 +109,13 @@ export default {
 </script>
 
 <style scoped>
-.container {
+..container {
   max-width: 1000px;
   margin: auto;
   padding: 30px;
-  background-color: #f4f6f9;
+  background-color: #fff; /* White background */
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for contrast */
 }
 
 .header {
@@ -125,13 +125,13 @@ export default {
 
 .header h1 {
   font-size: 2.5rem;
-  color: #2a3d56;
+  color: #000; /* Black text */
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .header p {
-  color: #7a8a99;
+  color: #333; /* Dark grey text */
   font-size: 1.1rem;
 }
 
@@ -149,6 +149,9 @@ export default {
 .links .btn {
   margin: 0 10px;
   font-size: 1.1rem;
+  color: #000; /* Black text on buttons */
+  background-color: #fff; /* White background */
+  border: 1px solid #000; /* Black border */
 }
 
 .table-container {
@@ -159,29 +162,29 @@ export default {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  background-color: #fff;
+  background-color: #fff; /* White background */
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 th, td {
   padding: 16px;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #eee; /* Light grey border for contrast */
 }
 
 th {
   cursor: pointer;
-  color: #4a4a4a;
+  color: #000; /* Black text */
   font-weight: bold;
-  background-color: #eceff1;
+  background-color: #f1f1f1; /* Light grey background */
   text-align: center;
   font-size: 1.1rem;
 }
 
 td {
   font-size: 1rem;
-  color: #4a4a4a;
+  color: #333; /* Dark grey text */
 }
 
 .table-row {
@@ -189,23 +192,23 @@ td {
 }
 
 .table-row:hover {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Light grey on hover */
 }
 
 .sold-out {
-  color: #dc3545;
+  color: #dc3545; /* Red for sold-out */
   font-weight: bold;
 }
 
 .loader {
   text-align: center;
   font-size: 1.2rem;
-  color: #007bff;
+  color: #000; /* Black loader text */
 }
 
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
+  border-top: 4px solid #000; /* Black spinner */
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -225,7 +228,7 @@ td {
 }
 
 .btn-success {
-  background-color: #28a745;
+  background-color: #28a745; /* Green button for success */
   border-color: #28a745;
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -239,7 +242,7 @@ td {
 
 .dropdown-item {
   font-size: 1rem;
-  color: #28a745;
+  color: #000; /* Black text for dropdown item */
 }
 
 .btn-success:hover {
@@ -247,9 +250,26 @@ td {
   border-color: #1e7e34;
 }
 
-.btn-primary:hover, .btn-secondary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-  transition: background-color 0.3s, border-color 0.3s;
+.btn-primary {
+  color: #fff; /* White text */
+  background-color: #000; /* Black background */
+  border-color: #000;
 }
+
+.btn-primary:hover {
+  background-color: #333; /* Dark grey on hover */
+  border-color: #333;
+}
+
+.btn-secondary {
+  color: #000; /* Black text */
+  background-color: #fff; /* White background */
+  border-color: #000;
+}
+
+.btn-secondary:hover {
+  background-color: #f1f1f1; /* Light grey on hover */
+  border-color: #333;
+}
+
 </style>

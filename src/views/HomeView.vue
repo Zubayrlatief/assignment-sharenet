@@ -5,13 +5,11 @@
       <p>Stay updated with the latest spot prices in real time.</p>
     </div>
 
-    <!-- Loader and Error Handling -->
     <div v-if="loading" class="loader">
       <span class="spinner"></span> Loading spot prices...
     </div>
     <p v-if="error" class="error">{{ error }}</p>
 
-    <!-- Spot Prices Table -->
     <div v-if="!loading && !error" class="table-container">
       <table class="table table-bordered table-striped">
         <thead>
@@ -50,7 +48,6 @@
       </table>
     </div>
 
-    <!-- Links Section -->
     <div class="links">
       <router-link to="/contact" class="btn btn-primary">Contact Us</router-link>
       <router-link to="/workshops" class="btn btn-secondary">Workshops</router-link>
@@ -87,7 +84,7 @@ export default {
       this.error = null;
       try {
         const response = await axios.get('https://api.sharenet.co.za/api/v1/px2/spots');
-        this.spots = response.data.spots.slice(0, 5) || [];  // Get the latest 5
+        this.spots = response.data.spots.slice(0, 5) || [];
       } catch (error) {
         this.error = "Failed to load spot prices. Please try again later.";
         console.error("Error fetching spot prices:", error);
@@ -121,14 +118,14 @@ export default {
 </script>
 
 <style scoped>
-/* General Styles */
 .container {
   max-width: 1000px;
   margin: auto;
   padding: 30px;
-  background-color: #f4f6f9;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #000;
 }
 
 .header {
@@ -136,15 +133,15 @@ export default {
   margin-bottom: 40px;
 }
 
-.page-title {
+.header h1 {
   font-size: 2.5rem;
-  color: #2a3d56;
+  color: #000;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .header p {
-  color: #7a8a99;
+  color: #555;
   font-size: 1.1rem;
 }
 
@@ -162,6 +159,14 @@ export default {
 .links .btn {
   margin: 0 10px;
   font-size: 1.1rem;
+  background-color: #000000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.links .btn:hover {
+  background-color: #8b8b8b;
+  border-color: #444;
 }
 
 .sort-icon {
@@ -170,7 +175,6 @@ export default {
   color: #888;
 }
 
-/* Table Styling */
 .table-container {
   margin-top: 30px;
 }
@@ -192,16 +196,16 @@ th, td {
 
 th {
   cursor: pointer;
-  color: #4a4a4a;
+  color: #333;
   font-weight: bold;
-  background-color: #eceff1;
+  background-color: #f0f0f0;
   text-align: center;
   font-size: 1.1rem;
 }
 
 td {
   font-size: 1rem;
-  color: #4a4a4a;
+  color: #333;
 }
 
 .table-row {
@@ -222,7 +226,6 @@ td {
   font-weight: bold;
 }
 
-/* Loader Styles */
 .loader {
   text-align: center;
   font-size: 1.2rem;
@@ -242,12 +245,4 @@ td {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-/* Button Hover */
-.btn-primary:hover, .btn-secondary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
 </style>
