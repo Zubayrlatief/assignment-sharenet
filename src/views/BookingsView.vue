@@ -5,13 +5,11 @@
       <p>Stay updated with the latest workshops and book your spot now!</p>
     </div>
 
-    <!-- Loader and Error Handling -->
     <div v-if="loading" class="loader">
       <span class="spinner"></span> Loading workshops...
     </div>
     <p v-if="error" class="error">{{ error }}</p>
 
-    <!-- Workshops Table -->
     <div v-if="!loading && !error" class="table-container">
       <table class="table table-bordered table-striped">
         <thead>
@@ -42,7 +40,6 @@
       </table>
     </div>
 
-    <!-- Success Message Dropdown -->
     <div v-if="successMessage" class="dropdown">
       <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{ successMessage }}
@@ -52,7 +49,6 @@
       </div>
     </div>
 
-    <!-- Links Section -->
     <div class="links">
       <router-link to="/" class="btn btn-secondary">Back to Home</router-link>
     </div>
@@ -68,7 +64,7 @@ export default {
       workshops: [],
       loading: false,
       error: null,
-      successMessage: "", // To store the success message
+      successMessage: "",
     };
   },
   methods: {
@@ -85,16 +81,23 @@ export default {
         this.loading = false;
       }
     },
+
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString(undefined, options);
+    },
+
     async bookWorkshop(workshopId) {
       try {
         const response = await axios.post("https://backend-assignment-sharenet.onrender.com/api/book", {
           workshopId,
         });
         this.successMessage = "Successful booking! Saved to our database.";
-        this.fetchWorkshops(); // Refresh workshop data
+        this.fetchWorkshops();
       } catch (error) {
         console.error("Error booking workshop:", error);
-        this.successMessage = ""; // Clear message if booking fails
+        this.successMessage = "";
         alert(error.response?.data?.error || "Booking failed");
       }
     },
@@ -106,7 +109,6 @@ export default {
 </script>
 
 <style scoped>
-/* General Styles */
 .container {
   max-width: 1000px;
   margin: auto;
@@ -149,7 +151,6 @@ export default {
   font-size: 1.1rem;
 }
 
-/* Table Styling */
 .table-container {
   margin-top: 30px;
 }
@@ -216,14 +217,24 @@ td {
   100% { transform: rotate(360deg); }
 }
 
-/* Dropdown Success Message Styling */
 .dropdown {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-success {
   background-color: #28a745;
   border-color: #28a745;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dropdown-menu {
+  display: block;
+  text-align: center;
 }
 
 .dropdown-item {
@@ -231,7 +242,11 @@ td {
   color: #28a745;
 }
 
-/* Button Hover */
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
 .btn-primary:hover, .btn-secondary:hover {
   background-color: #0056b3;
   border-color: #0056b3;
