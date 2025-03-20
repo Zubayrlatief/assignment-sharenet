@@ -7,7 +7,6 @@
       <p><strong>Email:</strong> contact@sharenet.com</p>
 
       <div class="map">
-        <!-- Google Maps iframe with your provided URL -->
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.494954564555!2d18.630107599999988!3d-33.876904499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc41e6218f7ab3%3A0xbdd802ca53b92d43!2sSharenet%20(Pty)%20Ltd!5e0!3m2!1sen!2sza!4v1742461179795!5m2!1sen!2sza" 
           width="600" 
