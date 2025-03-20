@@ -1,18 +1,22 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Upcoming Workshops</h1>
-      <p>Stay updated with the latest workshops and book your spot now!</p>
+  <div class="container my-5">
+    <div class="header text-center mb-4">
+      <h1 class="display-4">Upcoming Workshops</h1>
+      <p class="lead">Stay updated with the latest workshops and book your spot now!</p>
     </div>
 
-    <div v-if="loading" class="loader">
-      <span class="spinner"></span> Loading workshops...
+    <div v-if="loading" class="d-flex justify-content-center align-items-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="ms-2">Loading workshops...</p>
     </div>
-    <p v-if="error" class="error">{{ error }}</p>
+    
+    <p v-if="error" class="text-danger text-center font-weight-bold">{{ error }}</p>
 
     <div v-if="!loading && !error" class="table-container">
-      <table class="table table-bordered table-striped">
-        <thead>
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
           <tr>
             <th>Venue</th>
             <th>Date</th>
@@ -21,35 +25,31 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="workshop in workshops" :key="workshop.id" class="table-row">
+          <tr v-for="workshop in workshops" :key="workshop.id">
             <td>{{ workshop.venue }}</td>
-            <td>{{ workshop.date }}</td>
+            <td>{{ formatDate(workshop.date) }}</td>
             <td>{{ workshop.seats }}</td>
             <td>
               <button 
                 v-if="workshop.seats > 0" 
                 @click="bookWorkshop(workshop.id)" 
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
               >
                 Book Now
               </button>
-              <span v-else class="sold-out">Sold Out</span>
+              <span v-else class="text-danger fw-bold">Sold Out</span>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div v-if="successMessage" class="dropdown">
-      <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ successMessage }}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <p class="dropdown-item">{{ successMessage }}</p>
-      </div>
+    <div v-if="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ successMessage }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <div class="links">
+    <div class="text-center mt-4">
       <router-link to="/" class="btn btn-secondary">Back to Home</router-link>
     </div>
   </div>
@@ -109,167 +109,48 @@ export default {
 </script>
 
 <style scoped>
-..container {
-  max-width: 1000px;
+.container {
+  max-width: 1200px;
   margin: auto;
-  padding: 30px;
-  background-color: #fff; /* White background */
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for contrast */
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.header h1 {
-  font-size: 2.5rem;
-  color: #000; /* Black text */
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.header p {
-  color: #333; /* Dark grey text */
-  font-size: 1.1rem;
-}
-
-.error {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-}
-
-.links {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.links .btn {
-  margin: 0 10px;
-  font-size: 1.1rem;
-  color: #000; /* Black text on buttons */
-  background-color: #fff; /* White background */
-  border: 1px solid #000; /* Black border */
 }
 
 .table-container {
   margin-top: 30px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  background-color: #fff; /* White background */
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-th, td {
-  padding: 16px;
-  border-bottom: 1px solid #eee; /* Light grey border for contrast */
-}
-
-th {
-  cursor: pointer;
-  color: #000; /* Black text */
-  font-weight: bold;
-  background-color: #f1f1f1; /* Light grey background */
+.table th, .table td {
   text-align: center;
-  font-size: 1.1rem;
+  vertical-align: middle;
 }
 
-td {
-  font-size: 1rem;
-  color: #333; /* Dark grey text */
+.table th {
+  background-color: #f8f9fa;
 }
 
-.table-row {
-  transition: background-color 0.3s ease;
+.text-center {
+  text-align: center;
 }
 
-.table-row:hover {
-  background-color: #f9f9f9; /* Light grey on hover */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 
-.sold-out {
-  color: #dc3545; /* Red for sold-out */
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.fw-bold {
   font-weight: bold;
 }
 
-.loader {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #000; /* Black loader text */
+.alert {
+  max-width: 600px;
+  margin: auto;
 }
 
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #000; /* Black spinner */
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.dropdown {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-success {
-  background-color: #28a745; /* Green button for success */
-  border-color: #28a745;
-  font-size: 1.1rem;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.dropdown-menu {
-  display: block;
-  text-align: center;
-}
-
-.dropdown-item {
-  font-size: 1rem;
-  color: #000; /* Black text for dropdown item */
-}
-
-.btn-success:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-.btn-primary {
-  color: #fff; /* White text */
-  background-color: #000; /* Black background */
-  border-color: #000;
-}
-
-.btn-primary:hover {
-  background-color: #333; /* Dark grey on hover */
-  border-color: #333;
-}
-
-.btn-secondary {
-  color: #000; /* Black text */
-  background-color: #fff; /* White background */
-  border-color: #000;
-}
-
-.btn-secondary:hover {
-  background-color: #f1f1f1; /* Light grey on hover */
-  border-color: #333;
+.btn-close {
+  background: transparent;
 }
 
 </style>

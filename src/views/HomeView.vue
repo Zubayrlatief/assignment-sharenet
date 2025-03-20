@@ -1,43 +1,47 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Spot Prices Overview</h1>
-      <p>Stay updated with the latest spot prices in real time.</p>
+  <div class="container mt-5">
+    <div class="text-center mb-4">
+      <h1 class="display-4">Spot Prices Overview</h1>
+      <p class="lead text-muted">Stay updated with the latest spot prices in real time.</p>
     </div>
 
-    <div v-if="loading" class="loader">
-      <span class="spinner"></span> Loading spot prices...
+    <div v-if="loading" class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading spot prices...</p>
     </div>
-    <p v-if="error" class="error">{{ error }}</p>
 
-    <div v-if="!loading && !error" class="table-container">
+    <p v-if="error" class="text-danger text-center">{{ error }}</p>
+
+    <div v-if="!loading && !error" class="table-responsive">
       <table class="table table-bordered table-striped">
-        <thead>
+        <thead class="thead-light">
           <tr>
-            <th @click="sort('fullName')" title="Click to sort by Full Name">
+            <th @click="sort('fullName')" style="cursor: pointer;">
               <span>Full Name</span>
               <i :class="getSortIcon('fullName')" class="sort-icon"></i>
             </th>
-            <th @click="sort('price')" title="Click to sort by Price">
+            <th @click="sort('price')" style="cursor: pointer;">
               <span>Price</span>
               <i :class="getSortIcon('price')" class="sort-icon"></i>
             </th>
-            <th @click="sort('move')" title="Click to sort by Move">
+            <th @click="sort('move')" style="cursor: pointer;">
               <span>Move</span>
               <i :class="getSortIcon('move')" class="sort-icon"></i>
             </th>
-            <th @click="sort('pmove')" title="Click to sort by Percentage Move">
+            <th @click="sort('pmove')" style="cursor: pointer;">
               <span>Percentage Move</span>
               <i :class="getSortIcon('pmove')" class="sort-icon"></i>
             </th>
-            <th @click="sort('datetime')" title="Click to sort by Time">
+            <th @click="sort('datetime')" style="cursor: pointer;">
               <span>Time</span>
               <i :class="getSortIcon('datetime')" class="sort-icon"></i>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(spot, index) in sortedSpots" :key="index" class="table-row">
+          <tr v-for="(spot, index) in sortedSpots" :key="index">
             <td>{{ spot.fullName }}</td>
             <td>{{ formatPrice(spot.price) }}</td>
             <td :class="getMoveClass(spot.move)">{{ spot.move }}</td>
@@ -48,9 +52,9 @@
       </table>
     </div>
 
-    <div class="links">
-      <router-link to="/contact" class="btn btn-primary">Contact Us</router-link>
-      <router-link to="/workshops" class="btn btn-secondary">Workshops</router-link>
+    <div class="text-center mt-4">
+      <router-link to="/contact" class="btn btn-primary mx-2">Contact Us</router-link>
+      <router-link to="/workshops" class="btn btn-secondary mx-2">Workshops</router-link>
     </div>
   </div>
 </template>
@@ -100,8 +104,8 @@ export default {
       return price ? `$${parseFloat(price).toFixed(2)}` : 'N/A';
     },
     getMoveClass(value) {
-      if (value > 0) return 'positive';
-      if (value < 0) return 'negative';
+      if (value > 0) return 'text-success';
+      if (value < 0) return 'text-danger';
       return '';
     },
     getSortIcon(column) {
@@ -118,131 +122,50 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: #000;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.header h1 {
-  font-size: 2.5rem;
-  color: #000;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.header p {
-  color: #555;
-  font-size: 1.1rem;
-}
-
-.error {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-}
-
-.links {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.links .btn {
-  margin: 0 10px;
-  font-size: 1.1rem;
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #000;
-}
-
-.links .btn:hover {
-  background-color: #8b8b8b;
-  border-color: #444;
-}
-
 .sort-icon {
   margin-left: 8px;
   font-size: 0.9rem;
   color: #888;
 }
 
-.table-container {
-  margin-top: 30px;
+.container {
+  background-image: url('https://zubayrlatief.github.io/Images-/pexels-mikhail-nilov-9301821.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-  padding: 16px;
-  border-bottom: 1px solid #f1f1f1;
-}
-
-th {
-  cursor: pointer;
-  color: #333;
-  font-weight: bold;
-  background-color: #f0f0f0;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-td {
-  font-size: 1rem;
-  color: #333;
-}
-
-.table-row {
-  transition: background-color 0.3s ease;
-}
-
-.table-row:hover {
+.table-striped tbody tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
 
-.positive {
-  color: #28a745;
-  font-weight: bold;
+thead {
+  background-color: #007bff; /* Blue header background */
+  color: #fff;
 }
 
-.negative {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.loader {
+thead th {
   text-align: center;
-  font-size: 1.2rem;
-  color: #007bff;
 }
 
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
+.text-center {
+  text-align: center;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 </style>
