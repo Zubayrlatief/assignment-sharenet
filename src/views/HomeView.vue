@@ -159,8 +159,8 @@ export default {
 .links .btn {
   margin: 0 10px;
   font-size: 1.1rem;
-  background-color: #000000;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
   border: 1px solid #000;
 }
 
